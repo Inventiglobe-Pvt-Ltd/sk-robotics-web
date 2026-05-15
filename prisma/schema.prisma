@@ -1,0 +1,139 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  TRAINER
+  SCHOOL
+}
+
+
+
+model User {
+  id       String  @id @default(uuid())
+  email    String  @unique
+  password String
+  name     String
+  phone    String?
+  role     Role    @default(TRAINER)
+
+  visits             Visit[]
+  sessionEntries     SessionEntry[]
+  trainerAttendances TrainerAttendance[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model School {
+  id               String    @id @default(uuid())
+  name             String
+  address          String?
+  principalName    String?
+  contactEmail     String?
+  registrationDate DateTime? @default(now())
+
+  // Login Credentials
+  username String? @unique
+  password String?
+
+  visits   Visit[]
+  classes  Class[]
+  payments PaymentInstallment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Class {
+  id           String @id @default(uuid())
+  name         String
+  studentCount Int
+
+  schoolId String
+  school   School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  sessions SessionEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Visit {
+  id            String   @id @default(uuid())
+  date          DateTime @default(now())
+  status        String   @default("ASSIGNED") // ASSIGNED, COMPLETED
+  sessionNumber Int      @default(1)
+
+  schoolId String
+  school   School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  trainerId String?
+  trainer   User?   @relation(fields: [trainerId], references: [id], onDelete: SetNull)
+
+  sessionEntries     SessionEntry[]
+  trainerAttendances TrainerAttendance[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SessionEntry {
+  id              String @id @default(uuid())
+  topicName       String
+  attendanceCount Int    // Present students
+  className       String? // Dynamic class name for flexibility
+  totalStrength   Int    @default(0)
+  absentCount     Int    @default(0)
+
+  classId String?
+  class   Class?  @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  visitId String
+  visit   Visit  @relation(fields: [visitId], references: [id], onDelete: Cascade)
+
+  trainerId String?
+  trainer   User?   @relation(fields: [trainerId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TrainerAttendance {
+  id            String  @id @default(uuid())
+  status        String // PRESENT, ABSENT
+  markedByAdmin Boolean @default(false)
+
+  trainerId String
+  trainer   User   @relation(fields: [trainerId], references: [id])
+
+  visitId String
+  visit   Visit  @relation(fields: [visitId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([trainerId, visitId])
+}
+
+model PaymentInstallment {
+  id                String    @id @default(uuid())
+  installmentNumber Int
+  status            String    // "PAID", "PENDING"
+  paidDate          DateTime?
+
+  schoolId String
+  school   School @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  notes     String?  @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

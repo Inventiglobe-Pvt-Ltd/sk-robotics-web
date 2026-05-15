@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────
+   SK ROBOTICS PREMIUM DESIGN SYSTEM
+   Inspired by Apple, Stripe, and Merge EDU
+   ──────────────────────────────────────────────────────────── */
+
+:root {
+  /* Core Palette (Cinematic Gold & Deep Onyx) */
+  --gold: #F5C518;
+  --gold-bright: #FFD740;
+  --gold-muted: rgba(245, 197, 24, 0.15);
+  --gold-glow: rgba(245, 197, 24, 0.25);
+  
+  /* Surface Layers (Linear-inspired Dark Mode) */
+  --bg-black: #050508;
+  --bg-surface: #0A0A14;
+  --bg-surface-2: #121220;
+  --bg-surface-3: #1A1A2E;
+  
+  /* Borders & Dividers */
+  --border-subtle: rgba(255, 255, 255, 0.03);
+  --border-medium: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-gold: rgba(245, 197, 24, 0.20);
+
+  /* Typography Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --text-muted: rgba(255, 255, 255, 0.50);
+  --text-dim: rgba(255, 255, 255, 0.30);
+
+  /* Spacing Tokens (Strict 8px Grid) */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-12: 96px;
+  --space-16: 128px;
+  --space-20: 160px;
+
+  --section-py-desktop: 160px;
+  --section-py-tablet: 120px;
+  --section-py-mobile: 80px;
+
+  /* Premium Animation Durations */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-slow: 0.8s;
+  --duration-normal: 0.5s;
+  --duration-fast: 0.3s;
+}
+
+@theme inline {
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-bg-black: var(--bg-black);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-surface-2: var(--bg-surface-2);
+  --color-bg-surface-3: var(--bg-surface-3);
+  
+  --color-border-subtle: var(--border-subtle);
+  --color-border-medium: var(--border-medium);
+  --color-border-strong: var(--border-strong);
+  --color-border-gold: var(--border-gold);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-dim: var(--text-dim);
+
+  --font-syne: var(--font-syne-family), "Syne", sans-serif;
+  --font-jakarta: var(--font-jakarta-family), "Plus Jakarta Sans", sans-serif;
+
+  --ease-premium: var(--ease-premium);
+}
+
+/* ────────────────────────────────────────────────────────────
+   BASE DEFAULTS
+   ──────────────────────────────────────────────────────────── */
+
+body {
+  background-color: var(--bg-black);
+  color: var(--text-primary);
+  font-family: var(--font-jakarta);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  ::selection {
+    background-color: var(--gold-muted);
+    color: var(--text-primary);
+  }
+  overflow-x: hidden;
+}
+
+/* ────────────────────────────────────────────────────────────
+   PREMIUM TYPOGRAPHY SYSTEM (Fluid Scale)
+   ──────────────────────────────────────────────────────────── */
+
+.heading-hero {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.heading-section {
+  font-family: var(--font-syne);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.heading-card {
+  font-family: var(--font-syne);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2vw, 1.85rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.body-large {
+  font-size: clamp(1.125rem, 1.6vw, 1.35rem);
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 65ch;
+  font-weight: 450;
+}
+
+.body-base {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.label-caps {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ────────────────────────────────────────────────────────────
+   LAYOUT UTILITIES
+   ──────────────────────────────────────────────────────────── */
+
+.section-container {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.5rem, 6vw, 5rem);
+  padding-right: clamp(1.5rem, 6vw, 5rem);
+}
+
+.section-spacing {
+  padding-top: var(--section-py-mobile);
+  padding-bottom: var(--section-py-mobile);
+}
+
+@media (min-width: 768px) {
+  .section-spacing {
+    padding-top: var(--section-py-tablet);
+    padding-bottom: var(--section-py-tablet);
+  }
+}
+
+@media (min-width: 1280px) {
+  .section-spacing {
+    padding-top: var(--section-py-desktop);
+    padding-bottom: var(--section-py-desktop);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   CINEMATIC VISUAL EFFECTS
+   ──────────────────────────────────────────────────────────── */
+
+.glass-panel {
+  background: rgba(10, 10, 20, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-medium);
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.5);
+}
+
+.premium-card {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: 24px;
+  transition: all var(--duration-normal) var(--ease-premium);
+  overflow: hidden;
+}
+
+.premium-card:hover {
+  border-color: var(--border-gold);
+  background: var(--bg-surface-2);
+  transform: translateY(-4px);
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+}
+
+/* Spotlight Effect utility */
+.spotlight-reveal {
+  position: relative;
+}
+
+.spotlight-reveal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(245, 197, 24, 0.12) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
+.spotlight-reveal:hover::before {
+  opacity: 1;
+}
+
+/* Gold Text Gradient */
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ────────────────────────────────────────────────────────────
+   SCROLLBAR
+   ──────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-muted);
+}
