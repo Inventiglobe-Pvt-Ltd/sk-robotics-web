@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 15px; width: 220px; }
+    input { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
+    button { width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; font-weight: bold; }
+    button:hover { background-color: #45a049; }
+    #status { margin-top: 10px; font-size: 12px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h4>ICDC Bridge</h4>
+  
+  <label for="dateInput">Enter Target Date:</label>
+  <input type="text" id="dateInput" placeholder="e.g. 05-Apr-2026">
+  
+  <button id="downloadBtn">Start Download</button>
+  
+  <div id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

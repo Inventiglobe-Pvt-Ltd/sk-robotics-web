@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "ICDC Bridge Downloader",
+  "version": "5.0",
+  "description": "Automated invoice scraper with dynamic credentials and auto-logout.",
+  "permissions": [
+    "downloads", 
+    "activeTab", 
+    "scripting", 
+    "tabs",
+    "storage" 
+  ],
+  "host_permissions": [
+    "*://tgbcl.telangana.gov.in/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "externally_connectable": {
+    "matches": [
+      "http://localhost:3000/*",
+      "http://localhost:3005/*",
+      "http://127.0.0.1:5500/*",
+      "https://invoice-v1-lac.vercel.app/*",
+      "https://ais-dev-twnne52pgfez3eytogfozb-135997602404.asia-southeast1.run.app/*"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://tgbcl.telangana.gov.in/*"],
+      "js": ["silence.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": ["*://tgbcl.telangana.gov.in/*"],
+      "js": ["autofill.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ]
+}
